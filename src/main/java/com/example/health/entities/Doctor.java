@@ -18,8 +18,8 @@ public class Doctor {
     @Column
     private Specialities specialities;
     //un doctor poate avea mai multe programari
-    @OneToMany(mappedBy = "appointment", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JsonManagedReference("doctorapp - appointment")
+    @OneToMany(mappedBy ="doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @JsonManagedReference("doctorapp - doctor")
     private List<DoctorApp> doctorApps;
 
     public Doctor() {

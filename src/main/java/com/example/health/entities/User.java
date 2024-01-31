@@ -14,8 +14,8 @@ public class User {
     @Column
     private String name;
     @Enumerated(EnumType.STRING)
-    @Column
-    private Role role;
+    @Column(name = "role")
+    private com.example.health.entities.Role role;
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JsonManagedReference("user - hospital")
     private List<Hospital> hospitals;
@@ -49,14 +49,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public List<Hospital> getHospitals() {

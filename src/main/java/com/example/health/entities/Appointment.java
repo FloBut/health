@@ -13,7 +13,6 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private Long appointmentNo;
     @Column
@@ -22,13 +21,18 @@ public class Appointment {
     private Date endDate;
     @Column
     private Date createDateApp;
+    @OneToMany(mappedBy = "appointment", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @JsonManagedReference("Doctorapp - appointment")
+    private List<DoctorApp> doctorApps;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference("user_id - appointment")
     private User user;
-    @OneToMany(mappedBy = "appointment", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JsonManagedReference("Doctorapp - appointment")
-    private List<DoctorApp> doctorApps;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    @JsonBackReference("patient_id - appointment")
+    private Patient patient;
 
     public Appointment() {
     }
@@ -87,5 +91,13 @@ public class Appointment {
 
     public void setDoctorApps(List<DoctorApp> doctorApps) {
         this.doctorApps = doctorApps;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

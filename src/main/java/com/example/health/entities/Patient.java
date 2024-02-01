@@ -1,8 +1,10 @@
 package com.example.health.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Patient {
@@ -15,6 +17,10 @@ public class Patient {
     Date dateOfBirth;
     @Column
     String address;
+    @ManyToOne
+    @JsonBackReference("patient - appointment")
+    @JoinColumn(name = "appointment_id")
+    private List<Appointment> appointments;
 
     public Patient() {
     }

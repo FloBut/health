@@ -22,6 +22,10 @@ public class Doctor {
     @JsonManagedReference("doctorapp - doctor")
     private List<DoctorApp> doctorApps;
 
+    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @JsonManagedReference("disponibility - doctor")
+    private List<Disponibility> disponibilities;
+
     public Doctor() {
     }
 
@@ -55,5 +59,13 @@ public class Doctor {
 
     public void setDoctorApps(List<DoctorApp> doctorApps) {
         this.doctorApps = doctorApps;
+    }
+
+    public List<Disponibility> getDisponibilities() {
+        return disponibilities;
+    }
+
+    public void setDisponibilities(List<Disponibility> disponibilities) {
+        this.disponibilities = disponibilities;
     }
 }

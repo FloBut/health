@@ -1,5 +1,6 @@
 package com.example.health.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -14,6 +15,10 @@ public class Disponibility {
     private Date startDate;
     @Column
     private Date endDate;
+    @ManyToOne
+    @JsonBackReference("disponibility - doctor")
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     public Disponibility() {
     }
@@ -40,5 +45,12 @@ public class Disponibility {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

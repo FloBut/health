@@ -13,6 +13,8 @@ public class Hospital {
     private String city;
     @Column
     private String address;
+    @Column
+    String phoneNo;
     //un spital are un user care poate avea rol de administrator o lista de medici si o lista de pacienti
     @ManyToOne
     @JsonBackReference("user - hospital")
@@ -60,6 +62,14 @@ public class Hospital {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }
 

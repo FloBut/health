@@ -2,26 +2,23 @@ package com.example.health.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Entity
-public class Review {
+public class AvailabilityDoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String review;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "doctor_id")
-    @JsonBackReference("review - doctor")
     private Doctor doctor;
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    @JsonBackReference("review - patient")
-    private Patient patient;
 
-    public Review() {
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "availability_id")
+    private Availability availability;
+
+    public AvailabilityDoc() {
     }
 
     public Long getId() {
@@ -32,14 +29,6 @@ public class Review {
         this.id = id;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
-
     public Doctor getDoctor() {
         return doctor;
     }
@@ -48,11 +37,11 @@ public class Review {
         this.doctor = doctor;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Availability getAvailability() {
+        return availability;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
     }
 }

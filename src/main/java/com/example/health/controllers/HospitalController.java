@@ -6,6 +6,7 @@ import com.example.health.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,9 @@ public class HospitalController {
     public HospitalController(HospitalService hospitalService) {
         this.hospitalService = hospitalService;
     }
-    @PostMapping
-    ResponseEntity<Hospital> addHospital(@RequestBody HospitalRequestDTO hospitalRequestDTO) {
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<Hospital> addHospital(@RequestBody HospitalRequestDTO hospitalRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addHospital(hospitalRequestDTO));
     }
 

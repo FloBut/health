@@ -6,8 +6,9 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+
 @Entity
-public class Disponibility {
+public class Availability {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,12 +16,10 @@ public class Disponibility {
     private Date startDate;
     @Column
     private Date endDate;
-    @ManyToOne
-    @JsonBackReference("disponibility - doctor")
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
-
-    public Disponibility() {
+    @OneToMany (mappedBy = "availability", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<AvailabilityDoc> availabilityDocs;
+    public Availability() {
     }
 
     public Long getId() {
@@ -47,10 +46,11 @@ public class Disponibility {
         this.endDate = endDate;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public List<AvailabilityDoc> getAvailabilityDocs() {
+        return availabilityDocs;
     }
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+
+    public void setAvailabilityDocs(List<AvailabilityDoc> availabilityDocs) {
+        this.availabilityDocs = availabilityDocs;
     }
 }

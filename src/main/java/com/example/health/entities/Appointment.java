@@ -21,18 +21,18 @@ public class Appointment {
     private Date endDate;
     @Column
     private Date createDateApp;
-    @OneToMany(mappedBy = "appointment", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JsonManagedReference("Doctorapp - appointment")
-    private List<DoctorApp> doctorApps;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference("user_id - appointment")
-    private User user;
+    @Column
+    private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    @JsonBackReference("doctor_id - appointment")
+    private Doctor doctor;
     @ManyToOne
     @JoinColumn(name = "patient_id")
     @JsonBackReference("patient_id - appointment")
     private Patient patient;
+
 
     public Appointment() {
     }
@@ -77,20 +77,12 @@ public class Appointment {
         this.createDateApp = createDateApp;
     }
 
-    public User getUser() {
-        return user;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<DoctorApp> getDoctorApps() {
-        return doctorApps;
-    }
-
-    public void setDoctorApps(List<DoctorApp> doctorApps) {
-        this.doctorApps = doctorApps;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public Patient getPatient() {
@@ -99,5 +91,13 @@ public class Appointment {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

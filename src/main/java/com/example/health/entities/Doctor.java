@@ -1,71 +1,70 @@
 package com.example.health.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
 import java.util.List;
+import java.util.Set;
+
 
 @Entity
-public class Doctor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
-    String name;
-// o specialitate poate avea mai multi medici?!
+public class Doctor extends User {
     @Enumerated(EnumType.STRING)
     @Column
-    private Specialities specialities;
+    private Specialty specialty;
     //un doctor poate avea mai multe programari
-    @OneToMany(mappedBy ="doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JsonManagedReference("doctorapp - doctor")
-    private List<DoctorApp> doctorApps;
+//un user are deja one to many cu spitalul
+//    @ManyToMany(mappedBy = "doctors")
+//    @JsonBackReference
+//    private List<Hospital> hospitals;
 
-    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JsonManagedReference("disponibility - doctor")
-    private List<Disponibility> disponibilities;
+    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL})
+    @JsonManagedReference("appointment - doctor")
+    private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonManagedReference("review - doctor")
+    private List<Review> reviews;
+
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<AvailabilityDoc> availabilityDocs;
 
     public Doctor() {
+        super();
+    }
+    public Specialty getSpecialities() {
+        return specialty;
     }
 
-    public Long getId() {
-        return id;
+    public void setSpecialities(Specialty specialities) {
+        this.specialty = specialty;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public String getName() {
-        return name;
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public Specialities getSpecialities() {
-        return specialities;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
-    public void setSpecialities(Specialities specialities) {
-        this.specialities = specialities;
+    public List<AvailabilityDoc> getAvailabilityDocs() {
+        return availabilityDocs;
     }
 
-    public List<DoctorApp> getDoctorApps() {
-        return doctorApps;
-    }
-
-    public void setDoctorApps(List<DoctorApp> doctorApps) {
-        this.doctorApps = doctorApps;
-    }
-
-    public List<Disponibility> getDisponibilities() {
-        return disponibilities;
-    }
-
-    public void setDisponibilities(List<Disponibility> disponibilities) {
-        this.disponibilities = disponibilities;
+    public void setAvailabilityDocs(List<AvailabilityDoc> availabilityDocs) {
+        this.availabilityDocs = availabilityDocs;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.health.entities;
 
-public enum Specialities {
+public enum Specialty {
     ORL,
     GASTRO,
     CARDIOLOGY,

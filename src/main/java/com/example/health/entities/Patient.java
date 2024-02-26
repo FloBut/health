@@ -1,45 +1,31 @@
 package com.example.health.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
 
 @Entity
-public class Patient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Patient extends User {
+
     @Column
-    String name;
+    private Date dateOfBirth;
     @Column
-    Date dateOfBirth;
-    @Column
-    String address;
-    @ManyToOne
-    @JsonBackReference("patient - appointment")
-    @JoinColumn(name = "appointment_id")
+    private String address;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JsonManagedReference("patient - appointment")
     private List<Appointment> appointments;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JsonManagedReference("patient - review")
+    private List<Review> reviews;
+
 
     public Patient() {
+        super();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Date getDateOfBirth() {
         return dateOfBirth;
@@ -55,5 +41,21 @@ public class Patient {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

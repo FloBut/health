@@ -17,6 +17,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class JwtSecurityConfig {
+
+  //este utilizat pentru a compara o parolă introdusă de utilizator cu parola stocată criptată în
+  // baza de date cu bcrypt. Aceasta implică luarea parolei introduse,
+  // criptarea acesteia și apoi compararea rezultatului criptării cu valoarea stocată în baza de date.
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
   //are rolul de a intercepta cerearea clientului de de a valda json web token(jwt)
     //inclus in antetul cererii http in functie de modul in care este configurat
     //poate fi configurat să efectueze și controlul accesului,
@@ -26,14 +34,6 @@ public class JwtSecurityConfig {
     private JwtRequestFilter jwtRequestFilter;
     ////este o subclasa a clasei encoder care encodeaza parola
 
-    //este utilizat pentru a compara o parolă introdusă de utilizator cu parola stocată criptată în
-    // baza de date cu bcrypt. Aceasta implică luarea parolei introduse,
-    // criptarea acesteia și apoi compararea rezultatului criptării cu valoarea stocată în baza de date.
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-    }
 
     //primește obiecte de tip Authentication care conțin informații despre cererea de autentificare a utilizatorului.
     // Aceste informații includ numele de utilizator și parola sau alte detalii de autentificare necesare.

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("hospital")
 public class HospitalController {
@@ -23,8 +25,8 @@ public class HospitalController {
     }
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<Hospital> addHospital(@RequestBody HospitalRequestDTO hospitalRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addHospital(hospitalRequestDTO));
+    public ResponseEntity<Hospital> addHospitalToUserId(@RequestBody Long id, HospitalRequestDTO hospitalRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addHospitalToUserId(id, hospitalRequestDTO));
     }
 
 }

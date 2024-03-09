@@ -33,6 +33,7 @@ public class Doctor extends User {
     private List<AvailabilityDoc> availabilityDocs;
 
     public Doctor() {
+
         super();
     }
     public Specialty getSpecialities() {

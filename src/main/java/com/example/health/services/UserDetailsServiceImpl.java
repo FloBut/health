@@ -1,6 +1,8 @@
 package com.example.health.services;
 
 import com.example.health.dtos.AuthRequestDTO;
+import com.example.health.entities.Doctor;
+import com.example.health.entities.Patient;
 import com.example.health.entities.User;
 import com.example.health.exceptions.ResourceNotFoundException;
 import com.example.health.repositories.UserRepository;
@@ -32,14 +34,56 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         User user = userRepository.findUserByName(userName).orElseThrow(()-> new ResourceNotFoundException("user not found"));
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), Collections.emptyList());
+        return new org.springframework.security.core.userdetails.User (user.getName(), user.getPassword(), getAuthorities(user));
+
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), getAuthorities(user));
     }
 
     @Transactional
-    public List<GrantedAuthority> getAuthorities() {
+    public List<GrantedAuthority> getAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if (user instanceof Doctor) {
+            authorities.add(new SimpleGrantedAuthority("DOCTOR"));
+        } else if (user instanceof Patient) {
+            authorities.add(new SimpleGrantedAuthority("PACIENT"));
+        }
+        //authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorities;
     }
+    //@Service
+    //public class CustomUserDetailsService implements UserDetailsService {
+    //
+    //    @Autowired
+    //    private UserRepository userRepository;
+    //
+    //    @Override
+    //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    //        User user = userRepository.findByUsername(username);
+    //        if (user == null) {
+    //            throw new UsernameNotFoundException("User not found with username: " + username);
+    //        }
+    //
+    //        // Determine the role based on the type of user
+    //        Set<GrantedAuthority> authorities = new HashSet<>();
+    //        if (user instanceof Doctor) {
+    //            authorities.add(new SimpleGrantedAuthority("DOCTOR"));
+    //        } else if (user instanceof Admin) {
+    //            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+    //        }
+    //        // Add additional roles for other types of users if needed
+    //
+    //        return new org.springframework.security.core.userdetails.User(
+    //            user.getUsername(), user.getPassword(), authorities);
+    //    }
+    //}
+//    @Transactional
+//    public List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(User user){
+//        return user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getRoleType().name()))
+//                .collect(Collectors.toList());
+//    }
+
+
+
 }

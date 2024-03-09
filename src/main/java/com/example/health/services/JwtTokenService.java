@@ -13,9 +13,9 @@ import java.util.Date;
 public class JwtTokenService {
     private Algorithm hmac512;
     private JWTVerifier verifier;
-    public static final long JWT_TOKEN_VALIDITY = 2222L;
+    public static final long JWT_TOKEN_VALIDITY = 2222222L;
 
-    public JwtTokenService(@Value("jwt.token") String secret) {
+    public JwtTokenService(@Value("${jwt.secret}") String secret) {
         this.hmac512 = Algorithm.HMAC512(secret);
         this.verifier = JWT.require(hmac512).build();
     }
@@ -26,7 +26,6 @@ public class JwtTokenService {
                 .sign(hmac512);
     }
     public String validateToken (String token) {
-
         return verifier.verify(token).getSubject();
     }
 }

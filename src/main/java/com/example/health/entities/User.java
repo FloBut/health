@@ -3,7 +3,6 @@ package com.example.health.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 @Entity

@@ -8,6 +8,7 @@ import com.example.health.repositories.HospitalRepository;
 import com.example.health.repositories.UserRepository;
 import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +26,9 @@ public class HospitalService {
     }
 
     @Transactional
-    public Hospital addHospitalToUserId (Long id, HospitalRequestDTO hospitalRequestDTO) {
-        User user = userRepository.findUserById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+    public Hospital addHospitalToUserId (HospitalRequestDTO hospitalRequestDTO) {
+        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findUserByName(loggedInUserName).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Hospital hospital = new Hospital();
         hospital.setName(hospitalRequestDTO.getName());

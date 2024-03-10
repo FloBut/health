@@ -9,6 +9,9 @@ public class HospitalRequestDTO {
     private String address;
     private String phoneNo;
 
+    public HospitalRequestDTO() {
+    }
+
     public HospitalRequestDTO(String name, String city, String address, String phoneNo) {
         this.name = name;
         this.city = city;

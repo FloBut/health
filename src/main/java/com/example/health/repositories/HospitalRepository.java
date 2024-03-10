@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface HospitalRepository extends JpaRepository<Hospital, Long> {
     Optional<Hospital> findUserById(Long id);
+    Optional<Hospital> findUserByUserName(String Name);
 }

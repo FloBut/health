@@ -14,8 +14,6 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Long appointmentNo;
-    @Column
     private Date startDate;
     @Column
     private Date endDate;
@@ -44,15 +42,6 @@ public class Appointment {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getAppointmentNo() {
-        return appointmentNo;
-    }
-
-    public void setAppointmentNo(Long appointmentNo) {
-        this.appointmentNo = appointmentNo;
-    }
-
     public Date getStartDate() {
         return startDate;
     }

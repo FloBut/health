@@ -1,9 +1,9 @@
 package com.example.health.entities;
 
 public enum Specialty {
-    ORL,
-    GASTRO,
-    CARDIOLOGY,
-    DERMATOLOGY
+    speciality1,
+    speciality2,
+    speciality3,
+    speciality4,
 
 }

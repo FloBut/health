@@ -3,10 +3,13 @@ package com.example.health.dtos;
 import com.example.health.entities.Specialty;
 
 public class DoctorRequestDTO {
-    Long doctorId;
+    private Long doctorId;
     private Specialty specialty;
 
-    public DoctorRequestDTO() {
+
+    public DoctorRequestDTO(Long doctorId, Specialty specialty) {
+        this.doctorId = doctorId;
+        this.specialty = specialty;
     }
 
     public Long getDoctorId() {

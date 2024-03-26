@@ -16,7 +16,6 @@ public class ExternalConfig {
     // desarailizarea dateleor primite in format json , xml sau yaml
     @Bean
     public ObjectMapper objectMapper() {
-
         return new ObjectMapper();
     }
 }

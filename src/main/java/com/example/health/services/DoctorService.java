@@ -14,6 +14,8 @@ import com.example.health.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,36 +23,43 @@ import java.util.List;
 public class DoctorService {
    private DoctorRepository doctorRepository;
    private AppointmentRepository appointmentRepository;
+   private UserRepository userRepository;
 
-    public DoctorService(DoctorRepository doctorRepository, AppointmentRepository appointmentRepository) {
+    public DoctorService(DoctorRepository doctorRepository, AppointmentRepository appointmentRepository, UserRepository userRepository) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
+        this.userRepository = userRepository;
     }
     @Transactional
     public Doctor createDoctor(DoctorRequestDTO doctorRequestDTO) {
         //ar trebui sa verific daca doctorul exista deja
-        if (doctorRequestDTO.getDoctorId() == null ||  doctorRequestDTO.getSpecialty() == null) {
-            throw new IllegalArgumentException("DoctorId and Specialty and UserId must be provided.");
-        }
         Doctor doctor = new Doctor();
-        doctor.setId(doctorRequestDTO.getDoctorId());
         doctor.setSpecialities(doctorRequestDTO.getSpecialty());
         return doctorRepository.save(doctor);
     }
     @Transactional
     public Appointment addAppointmentToDoctor(Long doctorId, AppointmentRequestDTO appointmentRequestDTO) {
+        Appointment appointment = new Appointment();
         Doctor doctor = doctorRepository.findDoctorById(doctorId).orElseThrow(() -> new ResourceNotFoundException("Doctor Id not Found"));
         if (appointmentExistsForDoctor(doctorId, appointmentRequestDTO.getAppointmentId())) {
             throw new IllegalArgumentException("Appointment already exists for the doctor.");
         }
-        Appointment appointment = new Appointment();
+        LocalDateTime startDateTime = appointmentRequestDTO.getStartDate();
+        LocalDateTime endDateTime = startDateTime.plusMinutes(30);
+        if (!startDateTime.isAfter(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Start date must be after the current date.");
+        }
+        LocalDateTime expectedEndDateTime = startDateTime.plusMinutes(30);
+        if (!endDateTime.isAfter(expectedEndDateTime)) {
+            throw new IllegalArgumentException("End date must be after 30 minutes of the start date.");
+        }
         appointment.setStartDate(appointmentRequestDTO.getStartDate());
-        appointment.setEndDate(appointmentRequestDTO.getEndDate());
-        appointment.setCreateDateApp(appointmentRequestDTO.getCreateDateApp());
+        appointment.setEndDate(endDateTime);
+        appointment.setCreateDateApp(LocalDateTime.now());
         appointment.setPrice(appointmentRequestDTO.getPrice());
 
         doctor.getAppointments().add(appointment);;
-        appointment.setDoctor(doctor);;
+        appointment.setDoctor(doctor);
 
         return appointmentRepository.save(appointment);
     }

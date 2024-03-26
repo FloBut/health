@@ -3,12 +3,16 @@ package com.example.health.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 import java.util.Set;
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Doctor extends User {
     @Enumerated(EnumType.STRING)
     @Column
@@ -19,7 +23,7 @@ public class Doctor extends User {
 //    @JsonBackReference
 //    private List<Hospital> hospitals;
 
-    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonManagedReference("appointment - doctor")
     private List<Appointment> appointments;
 
@@ -28,7 +32,7 @@ public class Doctor extends User {
     private List<Review> reviews;
 
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<AvailabilityDoc> availabilityDocs;
 

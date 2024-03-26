@@ -1,12 +1,11 @@
 package com.example.health.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Appointment {
@@ -14,15 +13,15 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Date startDate;
+    private LocalDateTime startDate;
     @Column
-    private Date endDate;
+    private LocalDateTime endDate;
     @Column
-    private Date createDateApp;
+    private LocalDateTime createDateApp;
     @Column
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id")
     @JsonBackReference("doctor_id - appointment")
     private Doctor doctor;
@@ -42,27 +41,27 @@ public class Appointment {
     public void setId(Long id) {
         this.id = id;
     }
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Date getCreateDateApp() {
+    public LocalDateTime getCreateDateApp() {
         return createDateApp;
     }
 
-    public void setCreateDateApp(Date createDateApp) {
+    public void setCreateDateApp(LocalDateTime createDateApp) {
         this.createDateApp = createDateApp;
     }
 

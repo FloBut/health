@@ -37,4 +37,14 @@ public class PatientRequestDTO {
     public void setAddress(String address) {
         this.address = address;
     }
+    //{
+    //    "id": 8,
+    //    "name": null,
+    //    "password": null,
+    //    "hospitals": null,
+    //    "dateOfBirth": "1990-01-01",
+    //    "address": "address1",
+    //    "appointments": null,
+    //    "reviews": null
+    //}
 }

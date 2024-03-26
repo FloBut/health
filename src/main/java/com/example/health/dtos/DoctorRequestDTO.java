@@ -12,6 +12,7 @@ public class DoctorRequestDTO {
         this.specialty = specialty;
     }
 
+
     public Long getDoctorId() {
         return doctorId;
     }
@@ -28,4 +29,13 @@ public class DoctorRequestDTO {
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
+
+    //    "id": 7,
+    //    "name": null,
+    //    "password": null,
+    //    "hospitals": null,
+    //    "appointments": null,
+    //    "reviews": null,
+    //    "availabilityDocs": null,
+    //    "specialities": null
 }

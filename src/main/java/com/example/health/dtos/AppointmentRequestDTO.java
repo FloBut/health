@@ -9,18 +9,28 @@ import java.util.Date;
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 public class AppointmentRequestDTO {
+    private Long patientId;
     private Long appointmentId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private LocalDateTime createDateApp;
     private Double price;
 
-    public AppointmentRequestDTO(Long appointmentId, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime createDateApp, Double price) {
+    public AppointmentRequestDTO(Long patientId, Long appointmentId, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime createDateApp, Double price) {
+        this.patientId = patientId;
         this.appointmentId= appointmentId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.createDateApp = createDateApp;
         this.price = price;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public Long getAppointmentId() {

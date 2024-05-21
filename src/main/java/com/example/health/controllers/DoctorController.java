@@ -26,6 +26,6 @@ public class DoctorController {
     }
     @PostMapping(("/{doctorId}/appointment"))
     public ResponseEntity<Appointment> addAppointmentToDoctor(@PathVariable Long doctorId, @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.addAppointmentToDoctor(doctorId, appointmentRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.addAppointmentToDoctor(appointmentRequestDTO));
     }
 }

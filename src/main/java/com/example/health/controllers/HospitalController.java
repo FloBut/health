@@ -16,7 +16,6 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RestController
 @RequestMapping("/hospital")
 public class HospitalController {
-    //cand ma loghez ca admin as vrea sa pot sa adaug un spital
     private HospitalService hospitalService;
 
     @Autowired

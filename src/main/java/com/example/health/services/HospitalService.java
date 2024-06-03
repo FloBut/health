@@ -47,6 +47,8 @@ public class HospitalService {
         userRepository.save(user);
         return hospitalRepository.save(hospital);
     }
+
+
     @Transactional
     public Hospital addDoctorToHospital(Long hospitalId, DoctorRequestDTO doctorRequestDTO) {
         Hospital hospital = hospitalRepository.findById(hospitalId)

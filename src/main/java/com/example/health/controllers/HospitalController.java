@@ -27,8 +27,6 @@ public class HospitalController {
     public ResponseEntity<Hospital> addHospitalToUserId(@PathVariable Long userId,@RequestBody HospitalRequestDTO hospitalRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addHospitalToUserId(userId, hospitalRequestDTO));
     }
-    @PostMapping("/add/doctor/{hospitalId}")
-    public ResponseEntity<Hospital> addDoctorToHospital(@PathVariable Long hospitalId, @RequestBody DoctorRequestDTO doctorRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addDoctorToHospital(hospitalId, doctorRequestDTO));
-    }
+
+
 }

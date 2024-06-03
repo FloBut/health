@@ -17,12 +17,6 @@ public class Doctor extends User {
     @Enumerated(EnumType.STRING)
     @Column
     private Specialty specialty;
-    //un doctor poate avea mai multe programari
-//un user are deja one to many cu spitalul
-//    @ManyToMany(mappedBy = "doctors")
-//    @JsonBackReference
-//    private List<Hospital> hospitals;
-
     @OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonManagedReference("appointment - doctor")
     private List<Appointment> appointments;

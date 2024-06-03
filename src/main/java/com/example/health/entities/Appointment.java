@@ -21,6 +21,9 @@ public class Appointment {
     @Column
     private Double price;
 
+    //TODO
+    //de adaugat initialDescription ca atribut
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id")
     @JsonBackReference("doctor_id - appointment")

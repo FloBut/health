@@ -17,6 +17,8 @@ public class User {
     private String name;
     @Column
     private String password;
+    @Column
+    private String email;
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JsonManagedReference("user - hospital")
     private List<Hospital> hospitals;

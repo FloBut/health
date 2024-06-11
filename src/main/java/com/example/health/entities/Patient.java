@@ -58,4 +58,5 @@ public class Patient extends User {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
 }

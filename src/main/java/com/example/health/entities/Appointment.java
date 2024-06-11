@@ -20,9 +20,8 @@ public class Appointment {
     private LocalDateTime createDateApp;
     @Column
     private Double price;
-
-    //TODO
-    //de adaugat initialDescription ca atribut
+    @Column
+    private String initialDescription;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "doctor_id")
@@ -90,5 +89,13 @@ public class Appointment {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getInitialDescription() {
+        return initialDescription;
+    }
+
+    public void setInitialDescription(String initialDescription) {
+        this.initialDescription = initialDescription;
     }
 }

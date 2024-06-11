@@ -13,13 +13,21 @@ import java.sql.Date;
 import java.util.List;
 
 public class PatientRequestDTO {
-        private Date dateOfBirth;
-        private String address;
+    private String name;
+    private String address;
+    private String phoneNo;
+    private String email;
+    private Date dateOfBirth;
 
+    public PatientRequestDTO() {
+    }
 
-    public PatientRequestDTO(Date dateOfBirth, String address) {
-        this.dateOfBirth = dateOfBirth;
+    public PatientRequestDTO(String name, String address, String phoneNo, String email, Date dateOfBirth) {
+        this.name = name;
         this.address = address;
+        this.phoneNo = phoneNo;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Date getDateOfBirth() {
@@ -37,7 +45,32 @@ public class PatientRequestDTO {
     public void setAddress(String address) {
         this.address = address;
     }
-    //{
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+//{
     //    "id": 8,
     //    "name": null,
     //    "password": null,

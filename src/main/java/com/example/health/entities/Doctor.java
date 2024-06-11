@@ -17,6 +17,7 @@ public class Doctor extends User {
     @Enumerated(EnumType.STRING)
     @Column
     private Specialty specialty;
+
     @OneToMany(mappedBy = "doctor", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JsonManagedReference("appointment - doctor")
     private List<Appointment> appointments;
@@ -63,7 +64,15 @@ public class Doctor extends User {
         return availabilityDocs;
     }
 
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
     public void setAvailabilityDocs(List<AvailabilityDoc> availabilityDocs) {
         this.availabilityDocs = availabilityDocs;
+
     }
 }

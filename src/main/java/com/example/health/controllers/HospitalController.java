@@ -27,6 +27,4 @@ public class HospitalController {
     public ResponseEntity<Hospital> addHospitalToUserId(@PathVariable Long userId,@RequestBody HospitalRequestDTO hospitalRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addHospitalToUserId(userId, hospitalRequestDTO));
     }
-
-
 }

@@ -22,26 +22,19 @@ public class DoctorController {
         this.doctorService = doctorService;
         this.hospitalService = hospitalService;
     }
-    @PostMapping("/create")
-    public ResponseEntity<Doctor> createDoctor (@RequestBody DoctorRequestDTO doctorRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(doctorRequestDTO));
-    }
-    @PostMapping(("/{doctorId}/appointment"))
-    public ResponseEntity<Appointment> addAppointmentToDoctor(@PathVariable Long doctorId, @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.addAppointmentToDoctor(appointmentRequestDTO, doctorId));
-    }
+
     @PostMapping("/add/doctor/{hospitalId}")
     public ResponseEntity<Hospital> addDoctorToHospital(@PathVariable Long hospitalId, @RequestBody DoctorRequestDTO doctorRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hospitalService.addDoctorToHospital(hospitalId, doctorRequestDTO));
     }
-    @DeleteMapping("/doctorId")
-    private ResponseEntity<Doctor> deleteDoctor (@PathVariable  Long doctorId) {
-        doctorService.deleteDoctorById(doctorId);
-        return ResponseEntity.noContent().build();
+    @PostMapping(("/{doctorId}/appointment"))
+    public ResponseEntity<Appointment> addAppointmentToDoctor(@PathVariable Long doctorId, @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.addAppointmentToDoctor(appointmentRequestDTO, doctorId));
     }
     @DeleteMapping("/{doctorId}/hospital/{hospitalId}")
     private ResponseEntity<Doctor> removeDoctorFromHospital(@PathVariable Long doctorId, @PathVariable Long hospitalId) {
         doctorService.removeDoctorFromHospital(doctorId, hospitalId);
         return ResponseEntity.noContent().build();
     }
+
 }

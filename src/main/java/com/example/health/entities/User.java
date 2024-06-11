@@ -19,6 +19,8 @@ public class User {
     private String password;
     @Column
     private String email;
+    @Column
+    private String phoneNo;
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JsonManagedReference("user - hospital")
     private List<Hospital> hospitals;
@@ -56,5 +58,20 @@ public class User {
 
     public void setHospitals(List<Hospital> hospitals) {
         this.hospitals = hospitals;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }

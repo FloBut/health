@@ -25,12 +25,6 @@ public class DoctorService {
         this.doctorRepository = doctorRepository;
         this.patientRepository = patientRepository;
     }
-    @Transactional
-    public Doctor createDoctor(DoctorRequestDTO doctorRequestDTO) {
-        Doctor doctor = new Doctor();
-        doctor.setSpecialities(doctorRequestDTO.getSpecialty());
-        return doctorRepository.save(doctor);
-    }
 
     @Transactional
     public Appointment addAppointmentToDoctor(AppointmentRequestDTO appointmentRequestDTO, Long doctorId) {
@@ -51,8 +45,6 @@ public class DoctorService {
         appointment.setPatient(patient);
         doctor.getAppointments().add(appointment);;
         appointment.setDoctor(doctor);
-        //TODO send mail cu detaliile programarii apcientului si mail si la doctor
-        //mailService.sendMail(apointment);
         return appointmentRepository.save(appointment);
     }
     @Transactional
@@ -70,7 +62,4 @@ public class DoctorService {
         hospitalRepository.save(hospital);
     }
 
-    public void deleteDoctorById(Long doctorId) {
-        doctorRepository.deleteById(doctorId);
-    }
 }

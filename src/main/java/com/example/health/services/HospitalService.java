@@ -30,9 +30,7 @@ public class HospitalService {
     }
 
     @Transactional
-    public Hospital addHospitalToUserId (Long userId, HospitalRequestDTO hospitalRequestDTO) {
-//        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//        User user = userRepository.findUserByName(loggedInUserName).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    public Hospital addHospitalToUserId(Long userId, HospitalRequestDTO hospitalRequestDTO) {
         User user = userRepository.findUsersById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
         Hospital hospital = new Hospital();
@@ -53,20 +51,23 @@ public class HospitalService {
     public Hospital addDoctorToHospital(Long hospitalId, DoctorRequestDTO doctorRequestDTO) {
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Hospital not found"));
-        Doctor doctor = new Doctor();
-        doctor.setId(doctorRequestDTO.getDoctorId());
-        doctor.setSpecialities(doctorRequestDTO.getSpecialty());
-        boolean doctorExists = hospital.getDoctors().stream()
-                .anyMatch(d -> d.getId().equals(doctorRequestDTO.getDoctorId()));
-        if (!doctorExists) {
-            doctor = doctorRepository.save(doctor);
-            if (hospital.getDoctors() == null) {
-                hospital.setDoctors(new ArrayList<>());
-            }
-            hospital.getDoctors().add(doctor);
-            return hospitalRepository.save(hospital);
+        Doctor doctor;
+        if (doctorRequestDTO.getId() != null) {
+            doctor = doctorRepository.findDoctorById(doctorRequestDTO.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
         } else {
-            throw new RuntimeException("Doctor already exists in the hospital.");
+            doctor = new Doctor();
         }
+        doctor.setName(doctorRequestDTO.getName());
+        doctor.setSpecialities(doctorRequestDTO.getSpecialty());
+        doctor.setEmail(doctorRequestDTO.getEmail());
+        doctor.setPassword(doctor.getEmail());
+
+        doctor = doctorRepository.save(doctor);
+        if (!hospital.getDoctors().contains(doctor)) {
+            hospital.getDoctors().add(doctor);
+        }
+        return hospitalRepository.save(hospital);
     }
+
 }

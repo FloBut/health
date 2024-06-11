@@ -62,6 +62,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Twilio dependency for WhatsApp messaging -->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>8.25.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>

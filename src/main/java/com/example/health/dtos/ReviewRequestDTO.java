@@ -7,6 +7,8 @@ public class ReviewRequestDTO {
 
     private String review;
 
+    public ReviewRequestDTO() {
+    }
 
     public ReviewRequestDTO(Long id, String review) {
         this.id = id;

@@ -16,6 +16,9 @@ public class AppointmentRequestDTO {
     private LocalDateTime createDateApp;
     private Double price;
 
+    public AppointmentRequestDTO() {
+    }
+
     public AppointmentRequestDTO(Long patientId, Long appointmentId, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime createDateApp, Double price) {
         this.patientId = patientId;
         this.appointmentId= appointmentId;
